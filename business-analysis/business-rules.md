@@ -74,10 +74,3 @@ Bir kredi başvurusu aşağıdaki durumlardan birinde bulunabilir:
 - Kullanıcı yetkileri görev ve sorumluluklara göre tanımlanacaktır.
 - Kredi değerlendirme ve onay süreçlerinde banka içi prosedürlerin esas alındığı varsayılmaktadır.
 
-## 9. Açık Konular
-
-- Kredi başvurusu onaylandıktan sonra hangi işlemler yapılmalıdır?
-- Onaylanan kredi tutarının talep edilen tutardan düşük olması durumunda müşteri onayı gerekli midir?
-- Reddedilen bir başvuru yeniden değerlendirilebilir mi?
-- Başvuru iptal etme yetkisi hangi rollere verilmelidir?
-- Kredi başvurularında hangi finansal belgeler zorunlu olmalıdır?
