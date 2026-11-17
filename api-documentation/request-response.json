@@ -63,12 +63,4 @@
   }
 }
 
-## Başvuru Durumlarının İşleyişi
 
-Bir kredi başvurusu sisteme ilk kaydedildiğinde `SUBMITTED` durumunda oluşturulur. Bu durum, başvurunun sisteme başarıyla iletildiğini ancak henüz değerlendirmeye alınmadığını ifade eder.
-
-Yetkili kullanıcı başvuruyu incelemeye başladığında başvuru durumu `UNDER_REVIEW` olarak güncellenir. Böylece sistem üzerinden hangi başvuruların değerlendirme aşamasında olduğu takip edilebilir.
-
-Değerlendirme sonucunda başvuru `APPROVED` veya `REJECTED` durumuna geçebilir. Başvuru sahibi veya yetkili kullanıcı tarafından iptal edilen başvurular ise `CANCELLED` olarak işaretlenir.
-
-Bu durumlar sayesinde kredi başvurusunun oluşturulmasından sonuçlandırılmasına kadar geçen süreç sistem üzerinden izlenebilir.
