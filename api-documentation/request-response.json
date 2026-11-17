@@ -1,0 +1,66 @@
+{
+  "project": "Corporate Loan Management System",
+  "description": "Kurumsal kredi başvurularının oluşturulması, görüntülenmesi ve değerlendirme sürecinin yönetilmesi için tasarlanan API örnekleri.",
+  "examples": {
+    "createLoanApplication": {
+      "purpose": "Kurumsal müşteri adına yeni bir kredi başvurusu oluşturur.",
+      "method": "POST",
+      "endpoint": "/api/v1/loan-applications",
+      "request": {
+        "customerId": "CUST-001",
+        "loanType": "BUSINESS_TERM_LOAN",
+        "requestedAmount": 500000,
+        "currency": "TRY",
+        "termMonths": 24
+      },
+      "response": {
+        "applicationId": "LOAN-001",
+        "applicationNumber": "APP-0001",
+        "customerId": "CUST-001",
+        "status": "SUBMITTED"
+      },
+      "httpStatus": 201
+    },
+    "getLoanApplication": {
+      "purpose": "Oluşturulan kredi başvurusunun bilgilerini ve güncel durumunu getirir.",
+      "method": "GET",
+      "endpoint": "/api/v1/loan-applications/LOAN-001",
+      "response": {
+        "applicationId": "LOAN-001",
+        "applicationNumber": "APP-0001",
+        "customerId": "CUST-001",
+        "loanType": "BUSINESS_TERM_LOAN",
+        "requestedAmount": 500000,
+        "currency": "TRY",
+        "termMonths": 24,
+        "status": "UNDER_REVIEW"
+      },
+      "httpStatus": 200
+    },
+    "updateLoanApplicationStatus": {
+      "purpose": "Yetkili kullanıcının başvuru durumunu güncellemesini sağlar.",
+      "method": "PATCH",
+      "endpoint": "/api/v1/loan-applications/LOAN-001/status",
+      "request": {
+        "status": "UNDER_REVIEW",
+        "description": "Başvuru değerlendirme sürecine alındı."
+      },
+      "response": {
+        "applicationId": "LOAN-001",
+        "previousStatus": "SUBMITTED",
+        "currentStatus": "UNDER_REVIEW"
+      },
+      "httpStatus": 200
+    }
+  }
+}
+
+## Başvuru Durumlarının İşleyişi
+
+Bir kredi başvurusu sisteme ilk kaydedildiğinde `SUBMITTED` durumunda oluşturulur. Bu durum, başvurunun sisteme başarıyla iletildiğini ancak henüz değerlendirmeye alınmadığını ifade eder.
+
+Yetkili kullanıcı başvuruyu incelemeye başladığında başvuru durumu `UNDER_REVIEW` olarak güncellenir. Böylece sistem üzerinden hangi başvuruların değerlendirme aşamasında olduğu takip edilebilir.
+
+Değerlendirme sonucunda başvuru `APPROVED` veya `REJECTED` durumuna geçebilir. Başvuru sahibi veya yetkili kullanıcı tarafından iptal edilen başvurular ise `CANCELLED` olarak işaretlenir.
+
+Bu durumlar sayesinde kredi başvurusunun oluşturulmasından sonuçlandırılmasına kadar geçen süreç sistem üzerinden izlenebilir.
