@@ -16,6 +16,11 @@ Sistem, bir işlem başarıyla tamamlanamadığında uygun HTTP durum kodunu ve 
 | 404 | `APPLICATION_NOT_FOUND` | İstenen kredi başvurusunun sistemde bulunamaması. |
 | 409 | `INVALID_STATUS_TRANSITION` | Başvurunun mevcut durumundan istenen duruma geçirilememesi. |
 | 500 | `INTERNAL_SERVER_ERROR` | Sistem içerisinde beklenmeyen bir hata oluşması. |
+| 404 | `CUSTOMER_NOT_FOUND` | Başvuruda belirtilen kurumsal müşterinin sistemde bulunamaması. |
+| 409 | `DUPLICATE_APPLICATION` | Aynı müşteri için aynı bilgilerle zaten açık bir başvuru bulunması. |
+| 422 | `CREDIT_LIMIT_EXCEEDED` | Talep edilen kredi tutarının müşterinin tanımlı limitini aşması. |
+| 422 | `INVALID_LOAN_TERM` | Talep edilen vadenin ürün için izin verilen aralığın dışında olması. |
+| 422 | `MISSING_REQUIRED_DOCUMENT` | Başvuru için zorunlu belgelerin eksik olması. |
 
 ## 3. Hata Senaryoları
 
@@ -45,7 +50,37 @@ Bir başvuru bulunamadığında API aşağıdaki gibi bir yanıt döndürür:
   "message": "Kredi başvurusu bulunamadı."
 }
 ```
+Kredi başvurusu oluşturulurken geçersiz bilgi gönderildiğinde API, hatalı alanları da belirten bir yanıt döndürür:
 
+```json
+{
+  "errorCode": "INVALID_REQUEST",
+  "message": "İstek bilgileri geçersiz.",
+  "details": [
+    {
+      "field": "loanAmount",
+      "issue": "Kredi tutarı sıfırdan büyük olmalıdır."
+    },
+    {
+      "field": "termMonths",
+      "issue": "Vade alanı zorunludur."
+    }
+  ]
+}
+```
+Sonuçlandırılmış bir başvurunun durumu değiştirilmeye çalışıldığında:
+
+```json
+{
+  "errorCode": "INVALID_STATUS_TRANSITION",
+  "message": "Başvuru mevcut durumundan istenen duruma geçirilemez.",
+  "details": {
+    "currentStatus": "REJECTED",
+    "requestedStatus": "UNDER_REVIEW"
+  }
+}
+```
 Bu yapı sayesinde API hataları standart bir formatta sunulur ve teknik ekip sorunları daha kolay analiz edebilir.
 
+> **Not:** `400` isteğin biçim olarak hatalı veya eksik olduğunu, `422` ise isteğin biçim olarak doğru olduğunu ancak iş kurallarına uymadığını ifade eder.
 *Not: Hata kodları ve örnek yanıtlar portföy projesi kapsamında tasarlanmıştır. Tüm veriler kurgusaldır.*
