@@ -83,4 +83,5 @@ Sonuçlandırılmış bir başvurunun durumu değiştirilmeye çalışıldığı
 Bu yapı sayesinde API hataları standart bir formatta sunulur ve teknik ekip sorunları daha kolay analiz edebilir.
 
 > **Not:** `400` isteğin biçim olarak hatalı veya eksik olduğunu, `422` ise isteğin biçim olarak doğru olduğunu ancak iş kurallarına uymadığını ifade eder.
+
 *Not: Hata kodları ve örnek yanıtlar portföy projesi kapsamında tasarlanmıştır. Tüm veriler kurgusaldır.*
